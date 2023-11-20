@@ -49,7 +49,7 @@ pipeline {
         steps{
           script{
             sh '''final_tag=$(echo $BUILD_NUMBER)
-            sed -i "s/docker_tag/${BUILD_NUMBER}/g" deployment.yaml
+            sed -i "s/docker_tag/${BUILD_NUMBER}/g" /home/ubuntu/deployment.yaml
             '''
             ansiblePlaybook become: true, installation: 'ansible', inventory: 'hosts', playbook: 'ansible.yaml'
           }
