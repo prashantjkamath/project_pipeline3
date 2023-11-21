@@ -58,7 +58,7 @@ pipeline {
             if (!fileExists(ansibleExecutable)) {
                 error "Ansible executable not found at $ansibleExecutable"
             }
-            ansiblePlaybook become: true, installation: 'ansible', inventory: 'hosts', playbook: 'ansible.yaml'
+            sh 'ansible-playbook -i hosts ansible.yaml'
           }
 
         }
