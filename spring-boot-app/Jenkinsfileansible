@@ -51,6 +51,13 @@ pipeline {
             sh '''final_tag=$(echo $BUILD_NUMBER)
             sed -i "s/docker_tag/$final_tag/g" deployment.yaml
             '''
+             // Specify the full path to ansible-playbook
+            def ansibleExecutable = "/usr/bin/ansible-playbook"
+
+            // Check if ansible-playbook exists
+            if (!fileExists(ansibleExecutable)) {
+                error "Ansible executable not found at $ansibleExecutable"
+            }
             ansiblePlaybook become: true, installation: 'ansible', inventory: 'hosts', playbook: 'ansible.yaml'
           }
 
